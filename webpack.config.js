@@ -6,7 +6,7 @@ module.exports = {
   // ビルドの起点となるファイルパスを設定。
   // このファイルからrequireされているファイルが芋づる式に取得されることになる。
   entry: {
-    'index': './src/index.js',
+    'index': './src/index.ts',
   },
 
   output: {
@@ -20,7 +20,7 @@ module.exports = {
 
   resolve: {
     // この拡張子のファイルをビルド対象に設定
-    extensions: ['.js'],
+    extensions: ['.ts', '.js'],
 
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
@@ -29,12 +29,6 @@ module.exports = {
 
   module: {
     rules: [
-      // 「.js」ファイルをbabel-loaderがハンドルするよう設定
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
       // 「.vue」ファイルをvue-loaderがハンドルするよう設定
       // 参照: https://github.com/vuejs-templates/webpack-simple/blob/master/template/webpack.config.js
       {
@@ -44,6 +38,23 @@ module.exports = {
           esModule: true,
           scss: 'vue-style-loader!css-loader!sass-loader'
         }
+      },
+      // 「.ts」ファイルをts-loaderがハンドルするよう設定
+      {
+        test: /\.ts$/,
+        exclude: /node_modules|vue\/src/,
+        loader: 'ts-loader',
+        options: {
+          // 「.vue」のファイルに接尾辞「.ts」がファイル名に追加されるよう設定
+          // 参照: https://github.com/TypeStrong/ts-loader#user-content-appendtssuffixto-regexp-default
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
+      // 「.js」ファイルがsource-map-loaderによって再加工されたソースマップをもつよう設定
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader'
       },
       {
         test: /\.css$/,

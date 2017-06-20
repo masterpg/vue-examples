@@ -14,59 +14,54 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import Vue from 'vue';
+  import {Component, Inject, Model, Prop, Watch} from 'vue-property-decorator';
 
-  export default {
-    props: {
-      propA: {
-        type: String,
-        default: 'default value A',
-      },
-      propB: {
-        type: String,
-        default: 'default value B',
-      },
-    },
+  @Component({})
+  export default class App extends Vue {
 
-    data() {
-      return {
-        msg: '',
-        helloMsg: `Hello ${this.propA}`,
-      }
-    },
+    @Prop({default: 'default value A'})
+    propA: string;
 
+    @Prop({default: 'default value B'})
+    propB: string;
+
+    // inital data
+    msg: string = '';
+
+    // use prop values for initial data
+    helloMsg: string = 'Hello, ' + this.propA;
+
+    // lifecycle hook
     mounted() {
       this.msg = 'mounted';
-    },
+    }
 
-    methods: {
-      greet() {
-        alert('greeting: ' + this.msg);
-      },
+    // computed
+    get computedMsg() {
+      return 'computed ' + this.msg;
+    }
 
-      async sleep(ms = 1000) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve();
-          }, ms);
-        });
-      },
+    greet() {
+      alert('greeting: ' + this.msg);
+    }
 
-      greetButtonOnClick() {
-        this.greet();
-      },
+    async sleep(ms: number = 1000): Promise<void> {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, ms);
+      });
+    }
 
-      async sleepButtonOnClick() {
-        await this.sleep();
-        alert('よく寝た！');
-      },
-    },
+    greetButtonOnClick() {
+      this.greet();
+    }
 
-    computed: {
-      computedMsg() {
-        return 'computed ' + this.msg;
-      },
+    async sleepButtonOnClick() {
+      await this.sleep();
+      alert('よく寝た！');
     }
   }
 </script>
