@@ -19,7 +19,7 @@
   import {Component, Inject, Model, Prop, Watch} from 'vue-property-decorator';
 
   @Component({})
-  export default class App extends Vue {
+  export default class Abc extends Vue {
 
     @Prop({default: 'default value A'})
     propA: string;

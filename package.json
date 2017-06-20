@@ -1,6 +1,7 @@
 {
   "name": "vue-examples",
   "scripts": {
+    "env": "./scripts/env.sh",
     "dev": "webpack --config ./webpack.config.js && webpack-dev-server"
   },
   "devDependencies": {
