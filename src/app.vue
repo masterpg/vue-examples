@@ -5,10 +5,10 @@
 
 <template>
   <div class="host">
-    <p>
-      <router-link to="/foo">Go to Foo</router-link>
-      <router-link to="/bar">Go to Bar</router-link>
-    </p>
+    <h1>Examples</h1>
+    <ul>
+      <li><router-link to="/abc">/abc</router-link></li>
+    </ul>
     <router-view></router-view>
   </div>
 </template>
@@ -16,16 +16,12 @@
 <script>
   import Vue from 'vue';
   import VueRouter from 'vue-router';
-  import {Button} from 'element-ui'
+  import AbcOne from './abc/abc.vue';
 
   Vue.use(VueRouter);
 
-  const Foo = { template: '<div>foo</div>' };
-  const Bar = { template: '<div>bar</div>' };
-
   const routes = [
-    { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar }
+    { path: '/abc', component: AbcOne },
   ];
 
   const router = new VueRouter({
@@ -34,18 +30,6 @@
 
   export default {
     router,
-
-    components: {
-      'el-button': Button,
-    },
-
-    data() {
-      return {
-      }
-    },
-
-    mounted() {
-    },
   }
 </script>
 
