@@ -4,7 +4,5 @@ import 'babel-polyfill';
 
 new Vue({
   el: '#app',
-  render: h => h(App, {
-    props: {propA: 'World'},
-  }),
+  render: h => h(App),
 });
