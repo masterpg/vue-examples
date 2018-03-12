@@ -1,9 +1,12 @@
 <style lang="scss">
+  .msg-input {
+    width: 300px;
+  }
 </style>
 
 <template>
   <div>
-    <input v-model="msg">
+    <el-input v-model="msg" class="msg-input"></el-input>
     <p>propA: {{propA}}</p>
     <p>propB: {{propB}}</p>
     <p>msg: {{msg}}</p>
@@ -11,13 +14,27 @@
     <p>computed msg: {{computedMsg}}</p>
     <button @click="greetButtonOnClick">Greet</button>
     <button @click="sleepButtonOnClick">Sleep</button>
+    <p>
+      <el-date-picker
+        type="date"
+        v-model="pickedDay"
+        placeholder="Pick a day">
+      </el-date-picker>
+    </p>
   </div>
 </template>
 
 <script>
   import Vue from 'vue';
+  import { Input, DatePicker } from 'element-ui';
+  // import { DatePicker } from 'element-datepicker';
 
   export default {
+    components: {
+      elInput: Input,
+      elDatePicker: DatePicker,
+    },
+
     props: {
       propA: {
         type: String,
@@ -33,6 +50,7 @@
       return {
         msg: '',
         helloMsg: `Hello ${this.propA}`,
+        pickedDay: null,
       }
     },
 
